@@ -12,9 +12,9 @@ addEventListener("fetch", (event)=> {
 
 async function handleRequest(request: Request) {
 	const json = await request.json();
-	const hrno = json["hrno"];
-	const max = json["max"];
-	const min = json["min"];
+	const hrno =parseInt(json["hrno"]);
+	const max = parseInt(json["max"]);
+	const min = parseInt(json["min"]);
 
 	if(hrno !== undefined && max !== undefined && min !== undefined) {
 		post(hrno,max,min);
@@ -44,8 +44,7 @@ export async function post(hrno: number, max: number, min: number) {
 
 	const request = `?entry.241330187=${hrno}&entry.1082102554=${calc_tmp}&entry.863884693=&entry.320320823=&entry.168080936_month=${date.getMonth()}&entry.168080936_day=${date.getDay()}&entry.273966609_sentinel=&fvv=1&draftResponse=%5Bnull%2Cnull%2C%22-4110088555736658884%22%5D&pageHistory=0&fbzx=-4110088555736658884`;
 
-	console.log(request);
-	// await fetch(baseURL + request, {
-		// method: "POST",
-	// });
+	await fetch(baseURL + request, {
+		method: "POST",
+	});
 }

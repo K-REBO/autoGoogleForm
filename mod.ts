@@ -1,5 +1,5 @@
-const db_url = "http://0.0.0.0:8080";
-const post_url = "http://0.0.0.0:8080";
+const db_url = "https://auto-google-form-db.deno.dev";
+const post_url = "https://auto-google-form-sender.deno.dev";
 
 const hrno_list:Array<number> = await fetch(db_url + "/all", {
 	method: 'GET',
@@ -11,6 +11,7 @@ hrno_list.map(async (hrno) =>  {
 		method:"GET"
 	}).then(res => res.json()).then(json => {
 		fetch(post_url, {
+			method:"POST",
 			body: JSON.stringify({
 				hrno: hrno,
 				max: json["max"],

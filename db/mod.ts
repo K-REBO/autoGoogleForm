@@ -12,6 +12,12 @@ type getKey = "all" | "size" | number;
 
 
 let db: Map<number, Person> = new Map();
+let headers = {
+	headers: {
+		"Access-Control-Allow-Origin": "*",
+		"Access-Control-Allow-Credentials": "true",
+	}
+};
 
 
 async function handleRequest(request: Request) {
@@ -41,13 +47,27 @@ async function handleRequest(request: Request) {
 
 			return new Response(JSON.stringify({
 				key_index_array: key_index_array,
-			}));
+			}),
+			{
+				headers: {
+					"Access-Control-Allow-Origin": "*",
+					"Access-Control-Allow-Credentials": "true",
+				}
+			}
+			);
 		}
 
 		else if(pathname.startsWith("/size")) {
 			return new Response(JSON.stringify({
 				size: db.size,
-			}))
+			}),
+			{
+				headers: {
+					"Access-Control-Allow-Origin": "*",
+					"Access-Control-Allow-Credentials": "true",
+				}
+			}
+			)
 		}
 
 		else {
@@ -57,18 +77,39 @@ async function handleRequest(request: Request) {
 					{
 						"msg": "bad request method type",
 					}
-				))		
+				),
+				{
+					headers: {
+						"Access-Control-Allow-Origin": "*",
+						"Access-Control-Allow-Credentials": "true",
+					}
+				}
+				)		
 			}
 			if(db.has(hrno)) {
 				return new Response(JSON.stringify({
 					hrno: hrno,
 					date: db.get(hrno),
-				}));	
+				}),
+				{
+					headers: {
+						"Access-Control-Allow-Origin": "*",
+						"Access-Control-Allow-Credentials": "true",
+					}
+				}
+				);	
 			}
 			else {
 				return new Response(JSON.stringify({
 					"msg": "requested data is not exsist",
-				}));
+				}),
+				{
+					headers: {
+						"Access-Control-Allow-Origin": "*",
+						"Access-Control-Allow-Credentials": "true",
+					}
+				}
+				);
 			}
 
 
@@ -84,7 +125,14 @@ async function handleRequest(request: Request) {
 			console.log("Delete");
 			return new Response(JSON.stringify({
 				"msg": `delete db with ${delete_DB} as key`
-			}));
+			}),
+			{
+				headers: {
+					"Access-Control-Allow-Origin": "*",
+					"Access-Control-Allow-Credentials": "true",
+				}
+			}
+			);
 		}
 
 		let hrno = parseInt(json["hrno"]);
@@ -97,7 +145,14 @@ async function handleRequest(request: Request) {
 
 		return new Response(JSON.stringify({
 			"msg": "Add to memory",
-		}));
+		}),
+		{
+			headers: {
+				"Access-Control-Allow-Origin": "*",
+				"Access-Control-Allow-Credentials": "true",
+			}
+		}
+		);
 	}
 
 	else {
@@ -105,6 +160,13 @@ async function handleRequest(request: Request) {
 			{
 				"msg": "Bad method"
 			}
-		))
+		),
+		{
+			headers: {
+				"Access-Control-Allow-Origin": "*",
+				"Access-Control-Allow-Credentials": "true",
+			}
+		}
+		)
 	}	
 }

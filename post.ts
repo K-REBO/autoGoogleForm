@@ -1,10 +1,5 @@
 const baseURL = "https://docs.google.com/forms/u/0/d/e/1FAIpQLSdXgpMXAYTvzQDSH0TlPUojb_a-mV4paqi9brQALgrtLwOL8Q/formResponse"
 
-/*入力時の検証
-HRNOの桁数
-体温の桁数
-体温のmin, maxの大小
- */
 
 addEventListener("fetch", (event)=> {
 	event.respondWith(handleRequest(event.request));

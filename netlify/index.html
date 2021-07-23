@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="output.css">
+	<title>Auto Google Form</title>
+</head>
+<body class="text-2xl" style="background-color: #75c9c8;">
+	<div id="main">
+		<div class="text-center text-4xl my-5" style="color:white">
+			Google Form auto 北高
+			<div class="text-xl">登録すると毎朝自動でGoogle formに入力します</div>
+		</div>
+
+
+
+		<div class=" m-2 grid rounded-xl grid-cols-4 text-sm" style="background:red">
+			<span class="text-8xl row-span-4 col-span-1">⚠</span>
+			<span class="col-span-3">・大丈夫だと思うけど知らせなしに動かなくなる場合があります</span>
+			<span class="col-span-3">・すべて自己責任でお願いします</span>
+			<span class="col-span-3">・僕も使ってます</span>
+		</div>
+
+		<div class="mt-5 mx-2">
+			<div class="mt-3" >
+				<span>HRNO</span>
+				<input id="hrno">
+				<div id="hrno_error"></div>
+			</div>
+
+			<div class="mt-3">
+				<span>氏名</span>
+				<input id="name">
+				<div id="name_error"></div>
+
+			</div>
+		</div>
+
+		<div class="mt-5 mx-2 rounded-xl bg-red-500" style="background-color: #FFFD98;">
+			<div>ランダムな体温を生成するため平熱の最高温度と最低温度</div>
+			<div class="m-3">
+				<span>平熱の最高温度</span>
+				<input id="tmp_max" placeholder="ex.36.7 --> 367">
+				<div id="tmp_max_error"></div>
+			</div>
+			<div class="m-3">
+				<span>平熱の最低温度</span>
+				<input id="tmp_min" placeholder="ex.35.9 --> 359">
+				<div id="tmp_min_error"></div>
+			</div>
+		</div>
+		<div class="m-2">
+			バグ、機能追加や感想はこちらまで
+			<textarea id="bag_report"></textarea>
+		</div>
+
+		<button id="submit" class="text-3xl rounded-xl h-12 w-32 bg-blue-600 text-white">送信</button>
+	</div>
+
+	<div class="text-xl">
+		ソースコード、設計はこちら
+		<a href="https://github.com/K-REBO/autoGoogleForm">
+			<img class="absolute right-0 w-32" src="GithubIcon.png">
+		</a>
+	</div>
+
+	<div id="error"></div>
+</body>
+<script>
+const db_url = "https://auto-google-form-db.deno.dev";
+let submit_ok = {
+	min:false,
+	max: false,
+	hrno:false,
+	name:false,
+	validate:false,
+}
+let data = {
+	min: 0,
+	max: 0,
+	name: "Hello",
+	hrno: 0
+};
+
+
+document.getElementById("hrno").addEventListener("blur",(e) => {
+	document.getElementById("hrno_error").innerHTML = `<span class="text-red-600">${hrno_check(e.target.value)}</span>`;
+});
+
+document.getElementById("name").addEventListener("blur",(e) => {
+	document.getElementById("name_error").innerHTML = `<span class="text-red-600">${name_check(e.target.value)}</span>`;
+});
+
+document.getElementById("tmp_max").addEventListener("blur",(e) => {
+	document.getElementById("tmp_max_error").innerHTML = `<span class="text-red-600">${tmp_max_check(e.target.value)}</span>`;
+});
+document.getElementById("tmp_min").addEventListener("blur",(e) => {
+	document.getElementById("tmp_min_error").innerHTML = `<span class="text-red-600">${tmp_min_error(e.target.value)}</span>`;
+});
+function validate() {
+	let max = document.getElementById("tmp_max_error").innerHTML = tmp_max_check(document.getElementById("tmp_max").value);
+	let min = document.getElementById("tmp_min_error").innerHTML = tmp_min_error(document.getElementById("tmp_min").value);
+	if(max > min) {
+		submit_ok.validate = false;
+		document.getElementById("error").innerHTML =  `<span class="text-red-600>最高と最小が逆</span>`;
+	}
+	else {
+		submit_ok.validate = true;
+	}
+}
+
+
+function tmp_min_error(text) {
+	let length = text.length;
+	let tmp = parseInt(text);
+	console.log("min_check")
+	if(isNaN(tmp)) {
+		submit_ok.min = false;
+		return "数値を入力";
+	}
+	else if(length !== 3) {
+		submit_ok.min = false;
+		return "359の形式で入力"
+	}
+	else if(tmp < 350) {
+		submit_ok.min = false;
+		return "もう少し高い温度で"
+	}
+	else {
+		data.min = tmp;
+		submit_ok.min = true;
+		return ""
+	}
+}
+
+
+function tmp_max_check(text) {
+	let length = text.length;
+	let tmp = parseInt(text);
+	console.log("max_check")
+	if(isNaN(tmp)) {
+		submit_ok.max = false;
+		return "数値を入力";
+	}
+	if(length !== 3) {
+		submit_ok.max = false;
+		return "367の形式で入力"
+	}
+	else if(tmp > 376) {
+		submit_ok.max = false;
+		return "もう少し低い温度で"
+	}
+	else {
+		data.max = tmp;
+		submit_ok.max = true;
+		return "";
+	}
+
+}
+
+
+function hrno_check(text) {
+	let length = text.length;
+	let hrno = parseInt(text);
+	console.log("hrno_check")
+	if(isNaN(hrno)) {
+		submit_ok.hrno = false;
+		return "数値を入力";
+	}
+	else if(length !== 4) {
+		submit_ok.hrno = false;
+		return "4桁";
+	}
+	else {
+		data.hrno = hrno;
+		submit_ok.hrno = true;
+		return "";
+	}
+
+}
+function name_check(text) {
+	let length = text.length;
+	console.log("name_check")
+	if(length === 0) {
+		submit_ok.name = false;
+		return "名前を入力してください"
+	}
+	else {
+		data.name = text;
+		submit_ok.name = true;
+		return ""
+	}
+}
+
+document.getElementById("submit").addEventListener("click", () => {
+	validate();
+	console.log(submit_ok)
+	if(submit_ok.hrno === true && submit_ok.name === true && submit_ok.max === true && submit_ok.min === true && submit_ok.validate === true) {
+		fetch(db_url, {
+			method: "POST",
+			mode: 'cors',
+			credentials: 'include',
+			
+			headers: {
+      			'Content-Type': 'application/json'
+    		},
+
+			body: JSON.stringify({
+				name: data.name,
+				hrno: data.hrno,
+				min: data.min,
+				max: data.max,
+			}),
+		});
+		document.getElementById("main").innerHTML =`<div class="text-white text-6xl text-center mt-40">送信完了<div>`;
+	}
+	else {
+		document.getElementById("error").innerHTML =  `<span class="bg-red-600>入力漏れがあります</span>`;
+	}
+})
+
+</script>
+</html>

@@ -1,0 +1,2 @@
+css:
+	windicss -mt index.html -o output.css

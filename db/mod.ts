@@ -51,7 +51,8 @@ async function handleRequest(request: Request) {
 			{
 				headers: {
 					"Access-Control-Allow-Origin": "*",
-					"Access-Control-Allow-Credentials": true,
+					"Access-Control-Allow-Credentials": "true",
+					'Content-Type': 'application/json'
 				}
 			}
 			);
@@ -64,7 +65,8 @@ async function handleRequest(request: Request) {
 			{
 				headers: {
 					"Access-Control-Allow-Origin": "*",
-					"Access-Control-Allow-Credentials": true,
+					"Access-Control-Allow-Credentials": "true",
+					'Content-Type': 'application/json'
 				}
 			}
 			)
@@ -81,7 +83,8 @@ async function handleRequest(request: Request) {
 				{
 					headers: {
 						"Access-Control-Allow-Origin": "*",
-						"Access-Control-Allow-Credentials": true,
+						"Access-Control-Allow-Credentials": "true",
+						'Content-Type': 'application/json'
 					}
 				}
 				)		
@@ -94,7 +97,8 @@ async function handleRequest(request: Request) {
 				{
 					headers: {
 						"Access-Control-Allow-Origin": "*",
-						"Access-Control-Allow-Credentials": true,
+						"Access-Control-Allow-Credentials": "true",
+						'Content-Type': 'application/json'
 					}
 				}
 				);	
@@ -106,7 +110,8 @@ async function handleRequest(request: Request) {
 				{
 					headers: {
 						"Access-Control-Allow-Origin": "*",
-						"Access-Control-Allow-Credentials": true,
+						"Access-Control-Allow-Credentials": "true",
+						'Content-Type': 'application/json'
 					}
 				}
 				);
@@ -129,7 +134,8 @@ async function handleRequest(request: Request) {
 			{
 				headers: {
 					"Access-Control-Allow-Origin": "*",
-					"Access-Control-Allow-Credentials": true,
+					"Access-Control-Allow-Credentials": "true",
+					'Content-Type': 'application/json'
 				}
 			}
 			);
@@ -149,7 +155,8 @@ async function handleRequest(request: Request) {
 		{
 			headers: {
 				"Access-Control-Allow-Origin": "*",
-				"Access-Control-Allow-Credentials": true,
+				"Access-Control-Allow-Credentials": "true",
+				'Content-Type': 'application/json'
 			}
 		}
 		);
@@ -164,7 +171,8 @@ async function handleRequest(request: Request) {
 		{
 			headers: {
 				"Access-Control-Allow-Origin": "*",
-				"Access-Control-Allow-Credentials": true,
+				"Access-Control-Allow-Credentials": "true",
+				'Content-Type': 'application/json'
 			}
 		}
 		)

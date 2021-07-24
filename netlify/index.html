@@ -215,7 +215,8 @@ document.getElementById("submit").addEventListener("click", () => {
 				max: data.max,
 			}),
 		}).then(res => res.json()).then(json => {
-			document.getElementById("main").innerHTML =`${json}`;
+			console.log()
+			document.getElementById("main").innerHTML =`${json["msg"]}`;
 
 			// if(json["msg"] === "Add to memory") {
 				// document.getElementById("main").innerHTML =`<div class="text-white text-6xl text-center mt-40">送信完了<div>`;

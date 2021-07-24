@@ -11,7 +11,13 @@ async function handleRequest(request: Request) {
 			{
 				"result": memory,
 			}
-		))
+		), {
+			headers: {
+				"Access-Control-Allow-Origin": "*",
+				"Access-Control-Allow-Credentials": "true",
+				"Access-Control-Allow-Headers":"Content-Type"
+			}
+		})
 	}
 	else if (request.method === "POST") {
 		let json = await request.json()
@@ -26,11 +32,23 @@ async function handleRequest(request: Request) {
 				console.log(memory);
 				return new Response(JSON.stringify({
 					"msg":`delete memory with ${deleteKey} as key`
-				}));	
+				}),{
+					headers: {
+						"Access-Control-Allow-Origin": "*",
+						"Access-Control-Allow-Credentials": "true",
+						"Access-Control-Allow-Headers":"Content-Type"	
+					}
+				});	
 			}
 			return new Response(JSON.stringify({
 				"msg":`Invalid ${json["delete_pass"]}`
-			}));	
+			}),{
+				headers: {
+					"Access-Control-Allow-Origin": "*",
+					"Access-Control-Allow-Credentials": "true",
+					"Access-Control-Allow-Headers":"Content-Type"
+				}
+			});	
 
 		}
 
@@ -42,13 +60,29 @@ async function handleRequest(request: Request) {
 			{
 				"msg": "Hello",
 			}
-		));
+		),{
+			headers: {
+				"Access-Control-Allow-Origin": "*",
+				"Access-Control-Allow-Credentials": "true",
+				"Access-Control-Allow-Headers":"Content-Type"
+
+			}
+		});
 	}
 	else {
 		return new Response(JSON.stringify(
 			{
 				"msg": "Bad method"
 			}
-		))
+		),
+		{
+
+			headers: {
+				"Access-Control-Allow-Origin": "*",
+				"Access-Control-Allow-Credentials": "true",
+				"Access-Control-Allow-Headers":"Content-Type"
+				
+			}
+		})
 	}	
 }

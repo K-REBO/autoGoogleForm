@@ -12,13 +12,6 @@ type getKey = "all" | "size" | number;
 
 
 let db: Map<number, Person> = new Map();
-let headers = {
-	headers: {
-		"Access-Control-Allow-Origin": "*",
-		"Access-Control-Allow-Credentials": "true",
-	}
-};
-
 
 async function handleRequest(request: Request) {
 	const { pathname } = new URL(request.url);

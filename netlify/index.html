@@ -70,6 +70,7 @@
 </body>
 <script>
 const db_url = "https://auto-google-form-db.deno.dev";
+const msg_url = "https://persistence-test.deno.dev";
 let submit_ok = {
 	min:false,
 	max: false,
@@ -214,6 +215,23 @@ document.getElementById("submit").addEventListener("click", () => {
 				max: data.max,
 			}),
 		});
+
+		fetch(msg_url, {
+			method: "POST",
+			mode: 'cors',
+			credentials: 'omit',
+			
+			headers: {
+      			'Content-Type': 'application/json'
+    		},
+
+			body: JSON.stringify({
+				data: document.getElementById("bag_report").value,
+			}),
+		});
+
+
+
 		document.getElementById("main").innerHTML =`<div class="text-white text-6xl text-center mt-40">送信完了<div>`;
 	}
 	else {

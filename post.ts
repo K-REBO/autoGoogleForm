@@ -15,15 +15,29 @@ async function handleRequest(request: Request) {
 		post(hrno,max,min);
 		return new Response(JSON.stringify({
 			"msg":"maybe success",
-		}))
-	}
+		}),
+		{
+
+			headers: {
+				"Access-Control-Allow-Origin": "*",
+				"Access-Control-Allow-Credentials": "true",
+				"Access-Control-Allow-Headers":"Content-Type"
+			}
+		}
+		)}
 
 	return new Response(JSON.stringify({
 		"msg": "Error Occuerd",
 		hrno: hrno,
 		max: max,
 		min: min,
-	}))
+	}), {
+		headers: {
+			"Access-Control-Allow-Origin": "*",
+			"Access-Control-Allow-Credentials": "true",
+			"Access-Control-Allow-Headers":"Content-Type"
+		}
+	})
 
 }
 

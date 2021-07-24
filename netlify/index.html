@@ -214,7 +214,13 @@ document.getElementById("submit").addEventListener("click", () => {
 				min: data.min,
 				max: data.max,
 			}),
-		});
+		}).then(res => res.json()).then(json => {
+			if(json["msg"] === "Add to memory") {
+				document.getElementById("main").innerHTML =`<div class="text-white text-6xl text-center mt-40">送信完了<div>`;
+			}else {
+				document.getElementById("main").innerHTML =`<div class="text-white text-6xl text-center mt-40">お使いのブラウザ、OSは使用できません　こちらに報告してください　<a href="https://forms.gle/HrTY68G2rXZSvtuW8">https://forms.gle/HrTY68G2rXZSvtuW8</a><div>`;
+			}
+		})
 
 		fetch(msg_url, {
 			method: "POST",
@@ -232,7 +238,6 @@ document.getElementById("submit").addEventListener("click", () => {
 
 
 
-		document.getElementById("main").innerHTML =`<div class="text-white text-6xl text-center mt-40">送信完了<div>`;
 	}
 	else {
 		document.getElementById("error").innerHTML =  `<span class="bg-red-600>入力漏れがあります</span>`;

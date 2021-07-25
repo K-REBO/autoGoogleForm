@@ -120,7 +120,7 @@ async function handleRequest(request: Request) {
 		let delete_DB = parseInt(json["delete"]);
 		if(typeof(delete_DB) === "number" && !isNaN(delete_DB)) {
 			db.delete(delete_DB);
-			console.log("Delete");
+			console.log(`Delete: ${delete_DB}`);
 			return new Response(JSON.stringify({
 				"msg": `delete db with ${delete_DB} as key`
 			}),
